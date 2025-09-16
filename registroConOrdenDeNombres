@@ -1,0 +1,254 @@
+import java.util.Scanner;
+
+public class segundoRegistro {
+
+    public static void main(String[] args) {
+        Scanner entrada = new Scanner(System.in);
+        System.out.println("Escriba el número de registros que desea hacer:");
+        int n = entrada.nextInt();
+        entrada.nextLine(); 
+
+        String[] arNombres = new String[n];
+        float[] arSalarios = new float[n];
+        char[] arSexos = new char[n];
+        String[] arCargos = new String[n];
+        int cantidad = 0;
+        boolean activo = true;
+        // la varibale cantidad es para saber cuantos registros se han guardado
+        while (activo) {
+            char opcion = menuUsuario(entrada);
+            switch (opcion) {
+                case '1':
+                    if (cantidad < n) {
+                        System.out.println("--- CREAR REGISTRO ---");
+                        System.out.println("Digite su nombre:");
+                        arNombres[cantidad] = entrada.nextLine();
+                        System.out.println("Digite su salario:");
+                        arSalarios[cantidad] = entrada.nextFloat();
+                        entrada.nextLine();
+                        System.out.println("Digite M si es masculino y F si es femenino:");
+                        arSexos[cantidad] = entrada.nextLine().charAt(0);
+                        System.out.println("Digite su cargo:");
+                        arCargos[cantidad] = entrada.nextLine();
+                        cantidad++;
+                        System.out.println("Registro creado con éxito.");
+                    } else {
+                        System.out.println("No hay espacio para más registros.");
+                    }
+                    break;
+                case '2':
+                    if (cantidad == 0) {
+                        System.out.println("No ha digitado ningún registro.");
+                    } else {
+                        for (int i = 0; i < cantidad; i++) {
+                            System.out.println("Registro #" + (i + 1));
+                            System.out.println("  Nombre: " + arNombres[i]);
+                            System.out.println("  Salario: " + arSalarios[i]);
+                            System.out.println("  Sexo: " + arSexos[i]);
+                            System.out.println("  Cargo: " + arCargos[i]);
+                        }
+                    }
+                    break;
+                case '3':
+                    if (cantidad == 0) {
+                        System.out.println("No hay registros para editar.");
+                    } else {
+                        System.out.println("Posicion que va a editar:(1-" + cantidad + ")");
+                        int idx = entrada.nextInt()-1;
+                        entrada.nextLine();
+                        if (idx >= 0 && idx < cantidad) {
+                            editarRegistro(entrada, idx, arNombres, arSalarios, arSexos, arCargos);
+                        } else {
+                            System.out.println("Registro inválido.");
+                        }
+                    }
+                    break;
+                case '4':
+                    if (cantidad == 0) {
+                        System.out.println("No hay registros para borrar.");
+                    } else {
+                        System.out.println("Posición del registro que va a borrar (1-" + cantidad + ")");
+                        int idx = entrada.nextInt() - 1;
+                        entrada.nextLine();
+                        if (idx >= 0 && idx < cantidad) {
+                            for (int i = idx; i < cantidad - 1; i++) {
+                                arNombres[i] = arNombres[i + 1];
+                                arSalarios[i] = arSalarios[i + 1];
+                                arSexos[i] = arSexos[i + 1];
+                                arCargos[i] = arCargos[i + 1];
+                            }
+                            cantidad --;
+                            System.out.println("Registro borrado con exito.");
+                        } else {
+                            System.out.println("Registro inválido.");
+                        }
+                    }
+                    break;
+                case '5':
+                    System.out.println("Ha decidido terminar.");
+                    activo = false;
+                    break;
+                case '6':
+                    // aqui se va a ordenar los registros
+                    if (cantidad == 0) {
+                        System.out.println("No hay registros para ordenar.");
+                    } else {
+                        ordenarRegistros(arNombres, arSalarios, arSexos, arCargos, cantidad);
+                    }
+                    break;
+                default:
+                    System.out.println("Opción no válida.");
+                    break;
+            }
+        }
+    }
+
+    public static char menuUsuario(Scanner entrada) {
+        System.out.println("---------------------------------------");
+        System.out.println("|         REGISTRO DE USUARIOS        |");
+        System.out.println("|                                     |");
+        System.out.println("| 1. Crear                            |");
+        System.out.println("| 2. Leer                             |");
+        System.out.println("| 3. Editar                           |");
+        System.out.println("| 4. Borrar                           |");
+        System.out.println("| 5. Terminar                         |");
+        System.out.println("| 6. Ordenar alfabeticamente          |");
+        System.out.println("---------------------------------------");
+        String opcionString = entrada.nextLine();
+        return opcionString.length() > 0 ? opcionString.charAt(0) : ' ';
+    }
+    
+    public static void editarRegistro(Scanner entrada, int idx,String[]arNombres,float[]arSalarios,char[]arSexos,String[]arCargos){
+        System.out.println("--------------------------------");
+        System.out.println("|      EDICION DE USUARIOS       |");
+        System.out.println("|                                |");
+        System.out.println("| 1. Editar nombre               |");
+        System.out.println("| 2. Editar salario              |");
+        System.out.println("| 3. Editar sexo                 |");
+        System.out.println("| 4. Editar cargo                |");
+        System.out.println("| 5. Cancelar                    |");
+        System.out.println("---------------------------------");
+        System.out.print("Seleccione una opción de edición: ");
+        int opcionEdicion = entrada.nextInt();
+        entrada.nextLine();
+
+        switch (opcionEdicion) {
+            case 1:
+                System.out.println("Nombre actual: " + arNombres[idx]);
+                System.out.println("Digite el nuevo nombre:");
+                arNombres[idx] = entrada.nextLine();
+                System.out.println("Ya se actualizo");
+                break;
+            case 2:
+                System.out.println("Salario actual: " + arSalarios[idx]);
+                System.out.println("Digite el nuevo salario:");
+                arSalarios[idx] = entrada.nextFloat();
+                entrada.nextLine();
+                System.out.println("Salario actualizado.");
+                break;
+            case 3:
+                System.out.println("Sexo actual: " + arSexos[idx]);
+                System.out.println("Digite el nuevo sexo:");
+                arSexos[idx] = entrada.nextLine().charAt(0);
+                System.out.println("Sexo actualizado.");
+                break;
+            case 4:
+                System.out.println("Cargo actual: " + arCargos[idx]);
+                System.out.println("Digite el nuevo cargo:");
+                arCargos[idx] = entrada.nextLine();
+                System.out.println("Cargo actualizado.");
+                break;
+            case 5:
+                System.out.println("Edición cancelada.");
+                break;
+            default:
+                System.out.println("Opción inválida.");
+        }
+    }
+       public static void ordenarRegistros(String[] arNombres, float[] arSalarios, char[] arSexos, String[] arCargos, int cantidad) {
+        if (cantidad <= 1) {
+            return;
+        }
+        ordenarPorDivision(arNombres, arSalarios, arSexos, arCargos, cantidad);
+    }
+    public static void ordenarPorDivision(String[] arNombres, float[] arSalarios, char[] arSexos, String[] arCargos, int cantidad) {
+        if (cantidad <= 1) {
+            return;
+        }
+        int mid = cantidad / 2;
+        String[] subArNombres1 = new String[mid];
+        float[] subArSalarios1 = new float[mid];
+        char[] subArSexos1 = new char[mid];
+        String[] subArCargos1 = new String[mid];
+        String[] subArNombres2 = new String[cantidad - mid];
+        float[] subArSalarios2 = new float[cantidad - mid];
+        char[] subArSexos2 = new char[cantidad - mid];
+        String[] subArCargos2 = new String[cantidad - mid];
+        for (int i = 0; i < mid; i++) {
+            subArNombres1[i] = arNombres[i];
+            subArSalarios1[i] = arSalarios[i];
+            subArSexos1[i] = arSexos[i];
+            subArCargos1[i] = arCargos[i];
+        }
+        for (int i = mid; i < cantidad; i++) {
+            subArNombres2[i - mid] = arNombres[i];
+            subArSalarios2[i - mid] = arSalarios[i];
+            subArSexos2[i - mid] = arSexos[i];
+            subArCargos2[i - mid] = arCargos[i];
+        }
+        ordenarPorDivision(subArNombres1, subArSalarios1, subArSexos1, subArCargos1, mid);
+        ordenarPorDivision(subArNombres2, subArSalarios2, subArSexos2, subArCargos2, cantidad - mid);
+        combinarArreglos(subArNombres1, subArSalarios1, subArSexos1, subArCargos1,subArNombres2, subArSalarios2, subArSexos2, subArCargos2,arNombres, arSalarios, arSexos, arCargos);
+    }
+    public static void combinarArreglos(String[] subArNombres1, float[]subArSalarios1, char[] subArSexos1, String[]subArCargos1,String[] subArNombres2, float[] subArSalarios2, char[] subArSexos2, String[] subArCargos2,String[] arNombres, float[] arSalarios, char[] arSexos, String[] arCargos) {
+        int i = 0, j = 0, k = 0;
+        while (i < subArNombres1.length && j < subArNombres2.length) {
+            if (esMenorOIgual(subArNombres1[i], subArNombres2[j])) {
+                arNombres[k] = subArNombres1[i];
+                arSalarios[k] = subArSalarios1[i];
+                arSexos[k] = subArSexos1[i];
+                arCargos[k] = subArCargos1[i];
+                i++;
+            } else {
+                arNombres[k] = subArNombres2[j];
+                arSalarios[k] = subArSalarios2[j];
+                arSexos[k] = subArSexos2[j];
+                arCargos[k] = subArCargos2[j];
+                j++;
+            }
+            k++;
+        }
+        while (i < subArNombres1.length) {
+            arNombres[k] = subArNombres1[i];
+            arSalarios[k] = subArSalarios1[i];
+            arSexos[k] = subArSexos1[i];
+            arCargos[k] = subArCargos1[i];
+            i++;
+            k++;
+        }
+        while (j < subArNombres2.length) {
+            arNombres[k] = subArNombres2[j];
+            arSalarios[k] = subArSalarios2[j];
+            arSexos[k] = subArSexos2[j];
+            arCargos[k] = subArCargos2[j];
+            j++;
+            k++;
+        }
+    }
+    public static boolean esMenorOIgual(String palabra1, palabra s2){
+        int longitudPalabra1 = palabra1.length();
+        int longitudPalabra2 = palabra2.length();
+        int palabraCorta = Math.min(longitudPalabra1, longitugPalabra2);  
+        for(int i = 0; i < palabraCorta; i++){
+            char caracter1 = Character.toLowerCase(palabra1.charAt(i));
+            char caracter2 = Character.toLowerCase(palabra2.charAt(i));
+            if (caracter1 < caracter2) {
+                return true;
+            }
+            if (caracter1 > caracter2) {
+                return false;
+            }
+        }
+        return longitudPalabra1 <= longitudPalabra2;
+    }
+}
