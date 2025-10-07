@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class ObjetoPedido {
     private ArrayList<ObjetoHelado> listaHelados;
     private ArrayList<ObjetoMalteada> listaMalteadas;
+    private ArrayList<ObjetoTopping> listaToppings;
     public int mesa;
     public float propina;
 
@@ -13,6 +14,7 @@ public class ObjetoPedido {
         this.mesa = mesa;
         this.listaHelados = new ArrayList<ObjetoHelado>();
         this.listaMalteadas = new ArrayList<ObjetoMalteada>();
+        this.listaToppings = new ArrayList<ObjetoTopping>();
     }
 
     // metodos
@@ -34,5 +36,9 @@ public class ObjetoPedido {
 
     public void addObjetoMalteada(ObjetoMalteada producto) {
         this.listaMalteadas.add(producto);
+    }
+
+    public void setPropina(float propina) {
+        this.propina = propina;
     }
 }

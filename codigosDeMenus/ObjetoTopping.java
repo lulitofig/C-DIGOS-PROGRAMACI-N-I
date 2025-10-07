@@ -3,31 +3,36 @@ package codigosDeMenus;
 import java.util.ArrayList;
 
 public class ObjetoTopping {
-    public String nombre;
-    public float precio;
+    private ArrayList<String> ingredientes;
+    public int id;
+    private float precio;
+    private String nombre;
 
-    // constructor
-    public ObjetoTopping(String nombre, float precio) {
-        this.nombre = nombre;
-        this.precio = precio;
+    public ObjetoTopping() {
+        this.ingredientes = new ArrayList<String>();
     }
 
-    // setters
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public void setPrecio(float precio) {
-        this.precio = precio;
-    }
-
-    // getters
-    public String getNombre() {
-        return this.nombre;
+    public ArrayList<String> getIngredientes() {
+        return this.ingredientes;
     }
 
     public float getPrecio() {
         return this.precio;
     }
 
+    public String getNombre() {
+        return this.nombre;
+    }
+
+    public void setIngredientes(ArrayList<String> ingredientes) {
+        this.ingredientes = ingredientes;
+    }
+
+    public void setPrecio(float precio) {
+        this.precio = precio;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 }

@@ -21,7 +21,6 @@ public class Menu {
         char optionId = firstOption;
         int option = 0; // variable que recibe la opcion del usuario
         Scanner input = new Scanner(System.in);
-        System.out.println(options);
         while (DRAW_MENU) {
             // primero dibujar el borde superior
             optionId = firstOption; // carga el identificador de la primera opcion

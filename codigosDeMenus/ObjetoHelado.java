@@ -4,15 +4,17 @@ import java.util.ArrayList;
 
 public class ObjetoHelado {
     public int id;
+    public String nombre;
     public float precio;
     private float precioTopping;
-    private ArrayList<String> sabores; // ese arreglo es privado y va a tener tipo string
+    private ArrayList<String> sabores;
     private ArrayList<String> toppings;
     private int tipo;
 
-    // constructor de clase:
-    public ObjetoHelado(int id, float precio, ArrayList<String> sabores, int tipo) {
+    // Constructor de clase
+    public ObjetoHelado(int id, String nombre, float precio, ArrayList<String> sabores, int tipo) {
         this.id = id;
+        this.nombre = nombre;
         this.precio = precio;
         this.sabores = sabores;
         this.tipo = tipo;
@@ -20,28 +22,29 @@ public class ObjetoHelado {
         this.precioTopping = 500;
     }
 
-    // metodos de clase
+    // Metodos de clase
     public float calcularPrecio() {
         float precioTotal = 0;
         int nroToppings = this.toppings.size();
-        precioTotal = this.precio + (this.precioTopping * nroToppings);// size es para arraylist y length es para array
+        precioTotal = this.precio + (this.precioTopping * nroToppings);
         return precioTotal;
     }
 
-    // setters
+    // Setters
     public void setPrecio(float precio) {
         this.precio = precio;
     }
 
-    public void setPrecioTopping() {
+    public void setPrecioTopping(float precioTopping) {
         this.precioTopping = precioTopping;
     }
 
+    //
     public void setSabores(ArrayList<String> sabores) {
         this.sabores = sabores;
     }
 
-    public void addToppings(String toppingType) {
+    public void addTopping(String toppingType) {
         this.toppings.add(toppingType);
     }
 
@@ -49,7 +52,7 @@ public class ObjetoHelado {
         this.tipo = tipo;
     }
 
-    // getters
+    // Getters
     public float getPrecio() {
         return this.precio;
     }
