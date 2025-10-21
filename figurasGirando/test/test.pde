@@ -1,0 +1,45 @@
+
+int conteo = 0;
+
+float x = 0;
+float y = 0;
+int r = 50;
+float vX = 1;
+float vY = 0.01;
+
+ArrayList <Cuadrados> pelotas = new ArrayList<>(); 
+ClaseCombinado figuraGiratoria; 
+
+void setup(){
+  size(1000, 700);
+
+  float radio_pelota = 50;
+  float lado_cuadrado = 40;
+  figuraGiratoria = new ClaseCombinado(width/2, height/2, radio_pelota, lado_cuadrado);
+
+  for(int i = 0; i < 10; i++){
+    pelotas.add(new Cuadrados(random(50, width-50), random(50, height-50), 50, random(-5, 5), 
+                              random(-5, 5), color(random(255),random(255),random(255))));
+  }
+  char texto = 'A';
+  String temp = "";
+  for(Cuadrados cuadro: pelotas){
+    temp += texto;
+    cuadro.setTexto(temp);
+    temp = "";
+    texto++;
+  }
+}
+
+
+void draw(){
+  background(0);    
+  figuraGiratoria.rotar();
+
+  figuraGiratoria.dibujar();
+
+  for(Cuadrados bola: pelotas){
+    bola.mover();
+    bola.dibujar();
+  }
+}
